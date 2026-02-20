@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PDF Flipbook Library</title>
+   <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- ════════════════════ NAVBAR ════════════════════════════ -->
+<nav class="navbar">
+  <div class="container">
+    <div class="navbar-inner">
+      <span class="navbar-brand">📚 PDF Flipbook Library</span>
+    </div>
+  </div>
+</nav>
+
+<!-- ════════════════════ CASE-STUDY SLIDER ═════════════════ -->
+<div class="section-wrap">
+  <div class="container">
+    <h2 class="section-heading">Our Case Studies</h2>
+    <p class="section-sub">Click the cover or the button to open the flipbook reader</p>
+
+    <div class="slider-outer">
+      <div class="case-card" id="case-card">
+
+        <!-- LEFT: PDF cover thumbnail -->
+        <div class="cover-panel" id="cover-panel">
+          <div class="cover-spinner" id="cover-spinner">
+            <div class="spinner-cover"></div>
+          </div>
+          <canvas id="cover-canvas"></canvas>
+        </div>
+
+        <!-- RIGHT: details -->
+        <div class="details-panel">
+          <span class="card-flag" id="card-flag"></span>
+          <div class="meta-table" id="meta-table"></div>
+          <p class="case-desc" id="case-desc"></p>
+
+          <button class="btn-cta" id="btn-cta">
+            <span class="cta-icon" id="cta-icon-inner">📖</span>
+            <span id="cta-label">OPEN FLIPBOOK</span>
+          </button>
+
+          <div class="slide-nav">
+            <span class="slide-counter" id="slide-counter">1 of 6</span>
+            <button class="btn-circle" id="btn-slide-prev" title="Previous">&#8249;</button>
+            <button class="btn-circle" id="btn-slide-next" title="Next">&#8250;</button>
+          </div>
+        </div>
+
+      </div><!-- /.case-card -->
+    </div><!-- /.slider-outer -->
+  </div>
+</div>
+
+<!-- ════════════════════ MODAL (custom, no Bootstrap) ══════ -->
+<div class="modal-overlay" id="pdfModal" role="dialog" aria-modal="true" aria-labelledby="modal-book-title">
+  <div class="modal-box">
+
+    <div class="modal-hdr">
+      <div class="modal-ttl">
+        <span>📖</span>
+        <span id="modal-book-title"></span>
+      </div>
+      <button class="modal-close" id="modal-close-btn" aria-label="Close">&#x2715;</button>
+    </div>
+
+    <div class="modal-body">
+      <div class="flipbook-wrapper">
+        <!-- Loading state -->
+        <div id="flipbook-loading" class="load-state">
+          <div class="spinner"></div>
+          <p>Loading PDF…</p>
+        </div>
+        <!-- Flipbook viewer -->
+        <div id="flipbook-viewer" class="flipbook-viewer-inner hidden">
+
+          <div class="zoom-viewport" id="zoom-viewport">
+            <div class="book-spread" id="book-spread">
+
+              <!-- LEFT PAGE -->
+              <div class="page-side page-left" id="page-left">
+                <div class="page-spinner hidden" id="spinner-left">
+                  <div class="spinner-sm"></div>
+                </div>
+                <div class="blank-label hidden" id="blank-left">—</div>
+                <canvas id="canvas-left"></canvas>
+              </div>
+
+              <!-- SPINE -->
+              <div class="book-spine"></div>
+
+              <!-- RIGHT PAGE -->
+              <div class="page-side page-right" id="page-right">
+                <div class="page-spinner hidden" id="spinner-right">
+                  <div class="spinner-sm"></div>
+                </div>
+                <div class="blank-label hidden" id="blank-right">—</div>
+                <canvas id="canvas-right"></canvas>
+              </div>
+
+            </div><!-- /.book-spread -->
+          </div><!-- /.zoom-viewport -->
+
+          <!-- Controls -->
+          <div class="flipbook-controls">
+            <button class="btn-flip" id="btn-prev" disabled>&#8249; Prev</button>
+            <span class="page-info" id="page-info"></span>
+            <button class="btn-flip" id="btn-next">Next &#8250;</button>
+
+            <div class="zoom-divider"></div>
+
+            <button class="btn-zoom" id="btn-zoom-out" title="Zoom out (-)">&#8722;</button>
+            <span class="zoom-label" id="zoom-label">100%</span>
+            <button class="btn-zoom" id="btn-zoom-in"  title="Zoom in (+)">&#43;</button>
+            <button class="btn-zoom" id="btn-zoom-reset" title="Reset zoom (0)">&#8635;</button>
+          </div>
+
+        </div><!-- /#flipbook-viewer -->
+
+      </div><!-- /.flipbook-wrapper -->
+    </div><!-- /.modal-body -->
+
+  </div><!-- /.modal-box -->
+</div><!-- /.modal-overlay -->
+
+<!-- Only PDF.js — no Bootstrap -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<script src="script.js"></script>
+</body>
+</html>

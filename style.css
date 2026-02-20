@@ -1,0 +1,510 @@
+/* ══════════════════════════════════════════════════════
+       RESET & BASE
+    ══════════════════════════════════════════════════════ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+      background: #0d1117;
+      color: #e6edf3;
+      min-height: 100vh;
+      line-height: 1.5;
+    }
+
+    /* ── Utility ──────────────────────────────────────── */
+    .hidden { display: none !important; }
+
+    .container {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* ── Spinner (replaces Bootstrap spinner-border) ──── */
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .spinner {
+      width: 2.4rem;
+      height: 2.4rem;
+      border: 3px solid rgba(240,192,64,.2);
+      border-top-color: #f0c040;
+      border-radius: 50%;
+      animation: spin .75s linear infinite;
+      display: inline-block;
+    }
+    .spinner-sm {
+      width: 1.2rem;
+      height: 1.2rem;
+      border: 2px solid rgba(0,0,0,.1);
+      border-top-color: #888;
+      border-radius: 50%;
+      animation: spin .75s linear infinite;
+      display: inline-block;
+    }
+    .spinner-cover {
+      width: 2rem;
+      height: 2rem;
+      border: 3px solid rgba(0,0,0,.1);
+      border-top-color: #555;
+      border-radius: 50%;
+      animation: spin .75s linear infinite;
+      display: inline-block;
+    }
+
+    /* ══════════════════════════════════════════════════════
+       NAVBAR
+    ══════════════════════════════════════════════════════ */
+    .navbar {
+      background: #161b22;
+      border-bottom: 1px solid #30363d;
+      padding: 14px 0;
+    }
+    .navbar-inner {
+      display: flex;
+      align-items: center;
+    }
+    .navbar-brand {
+      color: #f0c040;
+      font-weight: 700;
+      font-size: 1.3rem;
+      letter-spacing: .4px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+    }
+
+    /* ══════════════════════════════════════════════════════
+       PAGE SECTION
+    ══════════════════════════════════════════════════════ */
+    .section-wrap {
+      padding: 56px 0 64px;
+    }
+    .section-heading {
+      font-weight: 700;
+      font-size: 1.5rem;
+      margin-bottom: 6px;
+    }
+    .section-sub {
+      color: #8b949e;
+      margin-bottom: 32px;
+    }
+
+    /* ══════════════════════════════════════════════════════
+       CASE-STUDY SLIDER CARD
+    ══════════════════════════════════════════════════════ */
+    .slider-outer {
+      max-width: 960px;
+      margin: 0 auto;
+    }
+
+    /* Card shell */
+    .case-card {
+      display: flex;
+      align-items: stretch;
+      background: #fff;
+      border: 3px solid #4ade80;
+      border-radius: 20px;
+      overflow: hidden;
+      min-height: 380px;
+      color: #111;
+      transition: opacity .25s ease, transform .25s ease;
+    }
+    .case-card.fading {
+      opacity: 0;
+      transform: translateX(14px);
+    }
+
+    /* Left: PDF cover thumbnail */
+    .cover-panel {
+      width: 270px;
+      flex-shrink: 0;
+      position: relative;
+      background: #f5f5f5;
+      border-right: 1px solid #e8e8e8;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      overflow: hidden;
+    }
+    .cover-panel:hover::after {
+      content: '▶  Open';
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,.42);
+      color: #fff;
+      font-weight: 700;
+      font-size: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .cover-panel canvas {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+    .cover-spinner {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #f5f5f5;
+    }
+
+    /* Right: details panel */
+    .details-panel {
+      flex: 1;
+      padding: 28px 36px 22px;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    /* Country flag top-right */
+    .card-flag {
+      position: absolute;
+      top: 18px;
+      right: 22px;
+      font-size: 2rem;
+      line-height: 1;
+    }
+
+    /* Metadata grid */
+    .meta-table {
+      display: grid;
+      grid-template-columns: max-content 16px 1fr;
+      row-gap: 6px;
+      margin-bottom: 18px;
+    }
+    .meta-key { font-weight: 700; color: #111; white-space: nowrap; padding-right: 6px; }
+    .meta-sep { color: #333; font-weight: 700; padding-right: 10px; }
+    .meta-val { font-weight: 700; color: #111; }
+
+    /* Description */
+    .case-desc {
+      color: #333;
+      font-size: .88rem;
+      line-height: 1.75;
+      flex: 1;
+      margin-bottom: 20px;
+    }
+    .case-desc strong { color: #111; }
+
+    /* CTA button */
+    .btn-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: #f59e0b;
+      color: #fff;
+      border: none;
+      border-radius: 30px;
+      padding: 9px 22px 9px 8px;
+      font-weight: 700;
+      font-size: .85rem;
+      cursor: pointer;
+      align-self: flex-start;
+      transition: filter .18s;
+      letter-spacing: .4px;
+    }
+    .btn-cta:hover { filter: brightness(1.08); }
+
+    .cta-icon {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-size: 1rem;
+    }
+
+    /* Slide nav */
+    .slide-nav {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 10px;
+      margin-top: 18px;
+    }
+    .slide-counter {
+      font-weight: 700;
+      font-size: .9rem;
+      color: #333;
+      margin-right: 4px;
+    }
+    .btn-circle {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      border: 2px solid #1a1a1a;
+      background: transparent;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      font-weight: 700;
+      transition: background .15s;
+      color: #1a1a1a;
+    }
+    .btn-circle:hover:not(:disabled) { background: #f0f0f0; }
+    .btn-circle:disabled { opacity: .3; cursor: not-allowed; }
+
+    /* ══════════════════════════════════════════════════════
+       CUSTOM MODAL  (no Bootstrap)
+    ══════════════════════════════════════════════════════ */
+    .modal-overlay {
+      display: none;        /* shown via JS → display:flex */
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,.65);
+      z-index: 1050;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      opacity: 0;
+      transition: opacity .3s ease;
+      backdrop-filter: blur(3px);
+    }
+    .modal-overlay.is-open { opacity: 1; }
+
+    .modal-box {
+      background: #161b22;
+      border: 1px solid #30363d;
+      border-radius: 16px;
+      color: #e6edf3;
+      width: 100%;
+      max-width: 1140px;
+      max-height: 92vh;
+      display: flex;
+      flex-direction: column;
+      transform: scale(.88) translateY(24px);
+      transition: transform .32s cubic-bezier(.34,1.2,.64,1);
+      overflow: hidden;
+    }
+    .modal-overlay.is-open .modal-box { transform: scale(1) translateY(0); }
+
+    .modal-hdr {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 24px;
+      border-bottom: 1px solid #30363d;
+      flex-shrink: 0;
+    }
+    .modal-ttl {
+      color: #f0c040;
+      font-weight: 700;
+      font-size: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .modal-close {
+      background: none;
+      border: none;
+      color: #e6edf3;
+      font-size: 1.5rem;
+      line-height: 1;
+      cursor: pointer;
+      padding: 0 4px;
+      opacity: .6;
+      transition: opacity .15s;
+    }
+    .modal-close:hover { opacity: 1; }
+
+    .modal-body {
+      padding: 24px;
+      overflow-y: auto;
+      flex: 1;
+    }
+
+    /* ══════════════════════════════════════════════════════
+       FLIPBOOK WRAPPER & BOOK SPREAD
+    ══════════════════════════════════════════════════════ */
+    .flipbook-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background: #0d1117;
+      border-radius: 10px;
+      padding: 28px 16px 20px;
+    }
+
+    /* Loading state inside modal */
+    .load-state {
+      padding: 60px 0;
+      text-align: center;
+      color: #8b949e;
+      width: 100%;
+    }
+    .load-state p { margin-top: 12px; }
+
+    /* Error state */
+    .err-state { text-align: center; padding: 20px 0; }
+    .err-icon  { font-size: 2rem; display: block; margin-bottom: 8px; }
+    .err-text  { color: #f87171; font-weight: 600; }
+    .err-hint  { color: #6b7280; font-size: .85rem; margin-top: 6px; }
+
+    /* Flipbook viewer (hidden until PDF loads) */
+    .flipbook-viewer-inner {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+    }
+
+    /* Book spread (two pages + spine) */
+    .book-spread {
+      display: flex;
+      align-items: stretch;
+      box-shadow: 0 24px 64px rgba(0,0,0,.7);
+      border-radius: 4px;
+      overflow: visible;
+    }
+
+    .page-side {
+      width: 360px;
+      min-height: 480px;
+      background: #fff;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+    }
+    .page-left  { border-radius: 4px 0 0 4px; box-shadow: inset -10px 0 22px rgba(0,0,0,.18); }
+    .page-right { border-radius: 0 4px 4px 0;  box-shadow: inset  10px 0 22px rgba(0,0,0,.18); transform-origin: left center; }
+    .page-side canvas { display: block; width: 100%; height: auto; }
+
+    /* Blank page placeholder */
+    .blank-label {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #aaa;
+      font-size: .85rem;
+      background: #f7f7f7;
+    }
+
+    /* Per-page loading overlay */
+    .page-spinner {
+      position: absolute;
+      inset: 0;
+      background: rgba(255,255,255,.85);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 4;
+    }
+
+    /* Book spine */
+    .book-spine {
+      width: 18px;
+      flex-shrink: 0;
+      background: linear-gradient(90deg, #7a5b14 0%, #e0b84a 45%, #7a5b14 100%);
+      box-shadow: 0 0 8px rgba(0,0,0,.4);
+      z-index: 2;
+    }
+
+    /* ── Page-flip animations ──────────────────────────── */
+    @keyframes flipForward {
+      0%   { transform: perspective(1600px) rotateY(0deg);   }
+      45%  { transform: perspective(1600px) rotateY(-88deg); }
+      55%  { transform: perspective(1600px) rotateY(-92deg); }
+      100% { transform: perspective(1600px) rotateY(0deg);   }
+    }
+    @keyframes flipBackward {
+      0%   { transform: perspective(1600px) rotateY(0deg);  }
+      45%  { transform: perspective(1600px) rotateY(88deg); }
+      55%  { transform: perspective(1600px) rotateY(92deg); }
+      100% { transform: perspective(1600px) rotateY(0deg);  }
+    }
+    .page-right.anim-forward  { animation: flipForward  .65s ease; transform-origin: left  center; }
+    .page-left.anim-backward  { animation: flipBackward .65s ease; transform-origin: right center; }
+
+    /* ── Flipbook controls bar ─────────────────────────── */
+    .flipbook-controls {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      margin-top: 20px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .btn-flip {
+      background: linear-gradient(135deg, #e0b84a, #8a6412);
+      color: #0d1117;
+      border: none;
+      border-radius: 22px;
+      padding: 8px 22px;
+      font-weight: 700;
+      font-size: .88rem;
+      cursor: pointer;
+      transition: transform .15s, filter .15s;
+    }
+    .btn-flip:hover:not(:disabled) { transform: scale(1.06); filter: brightness(1.1); }
+    .btn-flip:disabled { opacity: .35; cursor: not-allowed; }
+
+    .page-info {
+      color: #8b949e;
+      font-size: .85rem;
+      min-width: 120px;
+      text-align: center;
+    }
+
+    /* Zoom */
+    .zoom-divider { width: 1px; height: 26px; background: #30363d; flex-shrink: 0; }
+    .btn-zoom {
+      background: #21262d;
+      color: #e6edf3;
+      border: 1px solid #30363d;
+      border-radius: 8px;
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background .15s, transform .12s;
+      flex-shrink: 0;
+    }
+    .btn-zoom:hover { background: #30363d; transform: scale(1.08); }
+    .btn-zoom:active { transform: scale(.95); }
+    .btn-zoom:disabled { opacity: .35; cursor: not-allowed; }
+    .zoom-label {
+      color: #8b949e;
+      font-size: .82rem;
+      min-width: 42px;
+      text-align: center;
+    }
+
+    /* Zoom viewport (scrollable at high zoom) */
+    .zoom-viewport {
+      width: 100%;
+      overflow: auto;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 8px 0 4px;
+    }
+
+    /* Opening zoom-in animation */
+    @keyframes bookZoomOpen {
+      0%   { transform: scale(.35) translateY(40px); opacity: 0; }
+      70%  { transform: scale(1.04) translateY(-4px); opacity: 1; }
+      100% { transform: scale(1)    translateY(0px);  opacity: 1; }
+    }
+    .zoom-open-anim {
+      animation: bookZoomOpen .55s cubic-bezier(.34,1.36,.64,1) both;
+    }
